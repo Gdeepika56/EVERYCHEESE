@@ -1,9 +1,10 @@
+from django.conf import settings
 from django.db import models
-
 from autoslug import AutoSlugField
 from model_utils.models import TimeStampedModel
 from django_countries.fields import CountryField
 from django.urls import reverse
+
 
 class Cheese(TimeStampedModel):
     name = models.CharField("Name of Cheese", max_length=255)
@@ -21,6 +22,13 @@ class Cheese(TimeStampedModel):
     # Other Fields Here...
     firmness = models.CharField("Firmness", max_length=20,
                                 choices=Firmness.choices, default=Firmness.UNSPECIFIED)
+    
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        on_delete=models.SET_NULL
+    )
+
 
     def __str__(self):
         return self.name
