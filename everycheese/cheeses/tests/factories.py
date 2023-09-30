@@ -1,3 +1,7 @@
+import pytest
+@pytest.fixture
+def cheese():
+    return CheeseFactory()
 from django.template.defaultfilters import slugify
 from everycheese.users.tests.factories import UserFactory
 import factory
